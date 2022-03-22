@@ -1,0 +1,26 @@
+function solution(dartResult) {
+    let answer=0;
+    var digit = dartResult.match(/[0-9]{1,2}/g);
+    var operator = dartResult.split(/[0-9]{1,2}/g);
+    operator.shift(); //맨 처음은 숫자이므로 split시 빈칸이 나옴
+    let part=[];
+    for(let i in operator){
+        let now=0;
+        if(operator[i].includes('S'))
+            now += parseInt(digit[i]);
+        if(operator[i].includes('D'))
+            now += Math.pow(parseInt(digit[i]),2);
+        if(operator[i].includes('T'))
+            now += Math.pow(parseInt(digit[i]),3);
+        if(operator[i].includes('*')){
+            now*=2;
+            if(i>0)
+            part[i-1]*=2;
+        }
+        if(operator[i].includes('#'))
+            now *=(-1);
+        part.push(now);
+    }
+    for(let res of part)
+        answer+=res;
+   return answer;}
